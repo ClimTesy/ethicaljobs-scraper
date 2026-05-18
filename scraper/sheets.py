@@ -6,6 +6,18 @@ from .config import GOOGLE_SHEET_NAME, SECTOR_TABS
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 
 def get_client(service_account_json_path: str):
+    # DEBUG: Show where the file is and what it contains
+    print("DEBUG: Attempting to load JSON from:", service_account_json_path)
+
+    try:
+        with open(service_account_json_path, "r") as f:
+            raw = f.read()
+        print("DEBUG: First 200 chars of file:", raw[:200])
+    except Exception as e:
+        print("DEBUG: Failed to read file:", e)
+        raise
+
+    # Now let Google load it normally
     creds = Credentials.from_service_account_file(service_account_json_path, scopes=SCOPES)
     return gspread.authorize(creds)
 
