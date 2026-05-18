@@ -3,16 +3,17 @@
 ETHICALJOBS_BASE = "https://www.ethicaljobs.com.au"
 
 CATEGORIES = [
-    "/jobs/health-care-medical",
-    "/jobs/international-development",
-    "/jobs/project-management",
-    "/jobs/community-development",
-    "/jobs/policy-research",
-    "/jobs/consulting-strategy",
-    "/jobs/education-training",
-    "/jobs/environment-conservation",
-    "/jobs/information-communication-technology",
+    "/jobs?categories=health-care-medical",
+    "/jobs?categories=international-development",
+    "/jobs?categories=project-management",
+    "/jobs?categories=community-development",
+    "/jobs?categories=policy-research",
+    "/jobs?categories=consulting-strategy",
+    "/jobs?categories=education-training",
+    "/jobs?categories=environment-conservation",
+    "/jobs?categories=information-communication-technology",
 ]
+
 
 GOOGLE_SHEET_NAME = "EthicalJobs Sector Dataset"
 
