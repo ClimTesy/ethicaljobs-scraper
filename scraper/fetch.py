@@ -1,12 +1,26 @@
+# scraper/fetch.py
+import requests
+from bs4 import BeautifulSoup
+from .config import ETHICALJOBS_BASE, CATEGORIES
+
+def get_page(url: str) -> BeautifulSoup:
+    r = requests.get(url, timeout=15)
+    r.raise_for_status()
+    return BeautifulSoup(r.text, "html.parser")
+
 def iter_category_jobs():
     for path in CATEGORIES:
         page = 1
         while True:
-            url = f"{ETHICALJOBS_BASE}{path}?page={page}"
+            url = f"{ETHICALJOBS_BASE}{path}&page={page}"
+            print("DEBUG: Fetching URL:", url)
+
             soup = get_page(url)
 
             # Updated selector for new EthicalJobs HTML
             cards = soup.select("a[href*='/job/'], a[href*='/jobs/']")
+            print("DEBUG: Found", len(cards), "job links on page", page)
+
             if not cards:
                 break
 
