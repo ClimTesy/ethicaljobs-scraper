@@ -2,7 +2,7 @@ name: Daily EthicalJobs Scrape
 
 on:
   schedule:
-    - cron: "0 16 * * *"  # 03:00 Sydney ≈ 16:00 UTC (adjust for DST)
+    - cron: "0 16 * * *"
   workflow_dispatch:
 
 jobs:
@@ -24,7 +24,11 @@ jobs:
 
       - name: Write service account key
         run: |
-          echo "${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}" > service_account.json
+          echo "${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON_BASE64 }}" | base64 -d > service_account.json
+          echo "---- FILE SIZE ----"
+          ls -l service_account.json
+          echo "---- FILE CONTENTS ----"
+          head -n 20 service_account.json
 
       - name: Run scraper
         run: |
