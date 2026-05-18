@@ -56,4 +56,19 @@ def append_jobs(ws, rows: list[dict]):
     existing = ws.get_all_values()
     print("DEBUG: Sheet currently has", len(existing), "rows")
 
-    if len(existing) ==
+    if len(existing) == 0:
+        print("DEBUG: Writing header row")
+        ws.append_row(header)
+
+    values = [
+        [
+            r["job_id"], r["title"], r["organisation"], r["category"], r["location"],
+            r["salary"], r["posted_date"], r["closing_date"], r["url"],
+            r["description_raw"], r["experience_extracted"], r["sector_tag"], r["scraped_at"]
+        ]
+        for r in rows
+    ]
+
+    print("DEBUG: Writing", len(values), "rows to sheet")
+    ws.append_rows(values, value_input_option="RAW")
+    print("DEBUG: Write complete")
